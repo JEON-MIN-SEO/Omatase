@@ -1,6 +1,5 @@
 package Omatase.omatase.DTO;
 
-import Omatase.omatase.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,11 +7,7 @@ import lombok.Setter;
 @Setter
 public class UserDTO {
 
-    private Long id;
-
     private String username;
 
     private String password;
-
-    private Role role;
 }
