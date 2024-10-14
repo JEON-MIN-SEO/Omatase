@@ -15,7 +15,7 @@ public class AdminEntity {
     private Long id;
 
     @Column(unique = true)
-    private String email; // 이메일을 ID로 사용
+    private String username; // 이메일을 ID로 사용
 
     private String password;
 }

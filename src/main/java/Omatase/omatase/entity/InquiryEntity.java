@@ -8,14 +8,18 @@ import org.springframework.data.annotation.Id;
 @Entity
 @Getter
 @Setter
-@Table(name = "users")
-public class UserEntity {
+@Table(name = "inquiries")
+public class InquiryEntity extends BaseEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
-    private String password;
+    private String title;
+
+    private String content;
 }

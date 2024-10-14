@@ -1,7 +1,7 @@
 package Omatase.omatase.entity;
 
 import Omatase.omatase.enums.ReservationStatus;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +14,13 @@ public class ReservationEntity extends BaseEntity{
 
     private String restaurant_link;
 
-    private
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user_id;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private AdminEntity admin_id;
 
     private int adult_count;
 
@@ -26,5 +32,6 @@ public class ReservationEntity extends BaseEntity{
 
     private LocalDateTime tertiary_date_time;
 
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 }
