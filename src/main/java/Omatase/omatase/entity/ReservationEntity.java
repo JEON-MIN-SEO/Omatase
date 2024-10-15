@@ -4,6 +4,7 @@ import Omatase.omatase.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
@@ -12,15 +13,19 @@ import java.time.LocalDateTime;
 @Setter
 public class ReservationEntity extends BaseEntity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String restaurant_link;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user_id;
+    private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "admin_id")
-    private AdminEntity admin_id;
+    private AdminEntity admin;
 
     private int adult_count;
 
@@ -31,6 +36,8 @@ public class ReservationEntity extends BaseEntity{
     private LocalDateTime secondary_date_time;
 
     private LocalDateTime tertiary_date_time;
+
+    private LocalDateTime available_date_time;
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
