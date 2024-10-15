@@ -23,10 +23,6 @@ public class ReservationEntity extends BaseEntity{
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private AdminEntity admin;
-
     private int adult_count;
 
     private int child_count;

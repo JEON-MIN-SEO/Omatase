@@ -4,14 +4,13 @@ import Omatase.omatase.DTO.ReservationDTO;
 import Omatase.omatase.entity.ReservationEntity;
 import Omatase.omatase.entity.UserEntity;
 import Omatase.omatase.enums.ReservationStatus;
-import Omatase.omatase.exception.ApiResponse;
 import Omatase.omatase.exception.CustomException;
 import Omatase.omatase.repository.ReservationRepository;
 import Omatase.omatase.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,7 +61,7 @@ public class ReservationService {
                 .orElseThrow(() -> new CustomException(1001, "User not found"));
 
         ReservationEntity reservation = new ReservationEntity();
-        reservation.setUser_id(userEntity);
+        reservation.setUser(userEntity);
         reservation.setRestaurant_link(reservationDTO.getRestaurant_link());
         reservation.setAdult_count(reservationDTO.getAdult_count());
         reservation.setChild_count(reservationDTO.getChild_count());
@@ -74,5 +73,25 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
+    // 예약 확정 및 상태 확인 메서드
+    public void confirmReservation(Long reservationId) {
+        ReservationEntity reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new CustomException(1002, "Reservation not found"));
 
+        // 24시간이 지나지 않았는지 확인
+        if (reservation.getStatus() == ReservationStatus.AVAILABLE &&
+                reservation.getAvailable_date_time().plusHours(24).isBefore(LocalDateTime.now())) {
+            reservation.setStatus(ReservationStatus.CANCELED);
+            reservationRepository.save(reservation);
+            throw new CustomException(1006, "Reservation has been automatically canceled due to expiration.");
+        }
+
+        // 현재 상태가 AVAILABLE인지 확인
+        if (reservation.getStatus() != ReservationStatus.AVAILABLE) {
+            throw new CustomException(1005, "Reservation must be in AVAILABLE status to confirm.");
+        }
+
+        reservation.setStatus(ReservationStatus.CONFIRMED);
+        reservationRepository.save(reservation);
+    }
 }

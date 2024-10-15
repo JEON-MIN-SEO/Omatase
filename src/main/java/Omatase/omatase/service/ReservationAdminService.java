@@ -9,6 +9,7 @@ import Omatase.omatase.exception.CustomException;
 import Omatase.omatase.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +42,7 @@ public class ReservationAdminService {
         reservationDTO.setPrimary_date_time(reservation.getPrimary_date_time());
         reservationDTO.setSecondary_date_time(reservation.getSecondary_date_time());
         reservationDTO.setTertiary_date_time(reservation.getTertiary_date_time());
-        reservationDTO.setStatus(reservation.getStatus());
+        reservationDTO.setStatus(reservation.getStatus()); // 예약 생성된 시간
         reservationDTO.setCreatedAt(reservation.getCreatedAt());
 
         // 사용자 정보 설정
@@ -67,10 +68,11 @@ public class ReservationAdminService {
             }
             // 선택한 날짜 설정
             reservation.setAvailable_date_time(updateDTO.getSelectedDateTime()); // 선택한 날짜를 available_date_time에 설정
+            reservation.setAvailable_date_time(LocalDateTime.now()); // AVAILABLE 상태로 변경된 시간을 기록
         }
 
         reservation.setStatus(updateDTO.getStatus());
-        reservationRepository.save(reservation);
+        reservationRepository.save(reservation); // 이 호출로 modifiedAt이 자동으로 업데이트됩니다.
     }
 
 }

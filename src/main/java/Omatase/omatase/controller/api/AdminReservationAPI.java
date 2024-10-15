@@ -2,9 +2,7 @@ package Omatase.omatase.controller.api;
 
 import Omatase.omatase.DTO.ReservationDTO;
 import Omatase.omatase.DTO.ReservationStatusUpdateDTO;
-import Omatase.omatase.exception.ApiResponse;
 import Omatase.omatase.service.ReservationAdminService;
-import Omatase.omatase.service.ReservationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

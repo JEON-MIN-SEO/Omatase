@@ -22,7 +22,7 @@ public class ReservationAPI {
 
     // 사용자 ID로 모든 예약 정보를 가져오는 엔드포인트
     @GetMapping("/user/{userId}")
-    public ResponseEntity<ApiResponse<List<ReservationDTO>>> getReservationsByUserId(@PathVariable Long userId) {
+    public ResponseEntity<ApiResponse<List<ReservationDTO>>> getReservationsByUserId(@PathVariable("userId") Long userId) {
         try {
             List<ReservationDTO> reservations = reservationService.getAllReservationsByUserId(userId);
             ApiResponse<List<ReservationDTO>> response = new ApiResponse<>(reservations);
@@ -43,6 +43,18 @@ public class ReservationAPI {
         } catch (CustomException e) {
             ApiResponse<String> errorResponse = new ApiResponse<>(e.getErrorCode(), e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }
+
+    // 예약 확정 API
+    @PostMapping("/confirm/{reservationId}")
+    public ResponseEntity<ApiResponse<String>> confirmReservation(@PathVariable("reservationId") Long reservationId) {
+        try {
+            reservationService.confirmReservation(reservationId);
+            ApiResponse<String> response = new ApiResponse<>("Reservation confirmed successfully.");
+            return ResponseEntity.ok(response);
+        } catch (CustomException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(e.getMessage()));
         }
     }
 }
