@@ -9,6 +9,7 @@ import java.util.List;
 public class ReservationAdminService {
 
     public List<ReservationDTO> getAllList() {
+
     }
 
     public void changeReservationStatus() {
