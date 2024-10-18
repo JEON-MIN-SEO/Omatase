@@ -56,7 +56,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String role = auth.getAuthority();
 
         // JWT 생성 (userId를 포함하여)
-        String token = jwtUtil.createJwt(userId, auth);
+        String token = jwtUtil.createJwt(userId, role);
         if (token == null) {
             // 토큰 생성 실패 로그 추가
             System.out.println("JWT 토큰 생성 실패");

@@ -1,7 +1,6 @@
 package Omatase.omatase.DTO;
 
 import Omatase.omatase.entity.UserEntity;
-import Omatase.omatase.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -61,5 +60,9 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserEntity getUserEntity() {
+        return this.userEntity; // UserEntity에서 직접 ID를 가져오기 위한 메서드
     }
 }
