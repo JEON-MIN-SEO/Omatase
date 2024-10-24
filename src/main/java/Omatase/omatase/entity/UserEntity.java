@@ -1,7 +1,5 @@
 package Omatase.omatase.entity;
 
-
-import Omatase.omatase.enums.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +19,5 @@ public class UserEntity {
 
     private String password;
 
-    private Role role = Role.USER;
+    private String role;
 }

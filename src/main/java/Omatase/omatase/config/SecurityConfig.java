@@ -38,11 +38,6 @@ public class SecurityConfig {
                 .oauth2Login((oauth2) -> oauth2
                         .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService)));
-//
-//        http
-//                .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("/").permitAll()
-//                        .anyRequest().authenticated());
 
         //경로별 인가 작업
         http
