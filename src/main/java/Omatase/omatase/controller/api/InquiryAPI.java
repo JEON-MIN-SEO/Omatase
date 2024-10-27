@@ -28,6 +28,7 @@ public class InquiryAPI {
             ApiResponse<List<InquiryDTO>> response = new ApiResponse<>(inquiries);
             return ResponseEntity.ok(response);
         } catch (CustomException e) {
+            // 수정: 에러 코드 포함
             ApiResponse<List<InquiryDTO>> errorResponse = new ApiResponse<>(e.getErrorCode(), e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
@@ -41,7 +42,9 @@ public class InquiryAPI {
             ApiResponse<String> response = new ApiResponse<>("Inquiry created successfully.");
             return ResponseEntity.ok(response);
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(e.getMessage()));
+            // 수정: 에러 코드 포함
+            ApiResponse<String> errorResponse = new ApiResponse<>(e.getErrorCode(), e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
     }
 
@@ -53,7 +56,9 @@ public class InquiryAPI {
             ApiResponse<String> response = new ApiResponse<>("Inquiry deleted successfully.");
             return ResponseEntity.ok(response);
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(e.getMessage()));
+            // 수정: 에러 코드 포함
+            ApiResponse<String> errorResponse = new ApiResponse<>(e.getErrorCode(), e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
     }
 }

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Table(name = "reservation")
 public class ReservationEntity extends BaseEntity{
 
     @Id
