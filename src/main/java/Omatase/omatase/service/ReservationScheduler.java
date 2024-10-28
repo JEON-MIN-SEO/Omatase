@@ -27,7 +27,7 @@ public class ReservationScheduler {
             if (reservation.getStatus() == ReservationStatus.AVAILABLE) {
                 // AVAILABLE 상태이고, 24시간이 지난 경우
                 if (reservation.getAvailable_date_time() != null &&
-                        reservation.getAvailable_date_time().plusHours(24).isBefore(LocalDateTime.now())) {
+                        reservation.getModifiedAt().plusHours(24).isBefore(LocalDateTime.now())) {
 
                     // 상태를 CANCELED로 변경
                     reservation.setStatus(ReservationStatus.CANCELED);

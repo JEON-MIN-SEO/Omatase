@@ -1,5 +1,6 @@
 package Omatase.omatase.service;
 
+import Omatase.omatase.DTO.InquiryDTO;
 import Omatase.omatase.DTO.ReservationDTO;
 import Omatase.omatase.DTO.ReservationStatusUpdateDTO;
 import Omatase.omatase.entity.ReservationEntity;
@@ -9,7 +10,6 @@ import Omatase.omatase.exception.CustomException;
 import Omatase.omatase.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,16 +25,13 @@ public class ReservationAdminService {
     // 모든 사용자 예약 정보 가져오기
     public List<ReservationDTO> getAllReservations() {
         return reservationRepository.findAll().stream()
-                .map(this::convertToDTO) // convertToDTO 메서드 참조
+                .map(this::convertToReservationDTO)
                 .collect(Collectors.toList());
     }
 
-    // convertToDTO 메서드
-    private ReservationDTO convertToDTO(ReservationEntity reservation) {
-
-
+    // ReservationEntity를 ReservationDTO로 변환
+    private ReservationDTO convertToReservationDTO(ReservationEntity reservation) {
         ReservationDTO reservationDTO = new ReservationDTO();
-        // 예약 ID 설정
         reservationDTO.setReservationId(reservation.getId());
         reservationDTO.setRestaurant_link(reservation.getRestaurant_link());
         reservationDTO.setAdult_count(reservation.getAdult_count());
@@ -42,7 +39,8 @@ public class ReservationAdminService {
         reservationDTO.setPrimary_date_time(reservation.getPrimary_date_time());
         reservationDTO.setSecondary_date_time(reservation.getSecondary_date_time());
         reservationDTO.setTertiary_date_time(reservation.getTertiary_date_time());
-        reservationDTO.setStatus(reservation.getStatus()); // 예약 생성된 시간
+        reservationDTO.setAvailable_date_time(reservation.getAvailable_date_time());
+        reservationDTO.setStatus(reservation.getStatus());
         reservationDTO.setCreatedAt(reservation.getCreatedAt());
 
         // 사용자 정보 설정
@@ -62,17 +60,13 @@ public class ReservationAdminService {
 
         // 상태 변경 로직
         if (updateDTO.getStatus() == ReservationStatus.AVAILABLE) {
-            // AVAILABLE 상태로 변경 시 날짜가 선택되었는지 확인
             if (updateDTO.getSelectedDateTime() == null) {
                 throw new CustomException(1003, "Please select a date when changing to AVAILABLE");
             }
-            // 선택한 날짜 설정
-            reservation.setAvailable_date_time(updateDTO.getSelectedDateTime()); // 선택한 날짜를 available_date_time에 설정
-            reservation.setAvailable_date_time(LocalDateTime.now()); // AVAILABLE 상태로 변경된 시간을 기록
+            reservation.setAvailable_date_time(updateDTO.getSelectedDateTime());
         }
 
         reservation.setStatus(updateDTO.getStatus());
-        reservationRepository.save(reservation); // 이 호출로 modifiedAt이 자동으로 업데이트됩니다.
+        reservationRepository.save(reservation);
     }
-
 }

@@ -37,6 +37,26 @@ public class InquiryAdminService {
         inquiryRepository.save(inquiry);
     }
 
+
+    // 특정 문의 ID로 조회
+    public InquiryDTO getInquiryById(Long inquiryId) {
+        InquiryEntity inquiry = inquiryRepository.findById(inquiryId)
+                .orElseThrow(() -> new CustomException(1002, "Inquiry not found"));
+        return convertToInquiryDTO(inquiry);
+    }
+
+    // InquiryEntity를 InquiryDTO로 변환
+    private InquiryDTO convertToInquiryDTO(InquiryEntity inquiry) {
+        InquiryDTO inquiryDTO = new InquiryDTO();
+        inquiryDTO.setId(inquiry.getId());
+        inquiryDTO.setTitle(inquiry.getTitle());
+        inquiryDTO.setContent(inquiry.getContent());
+        inquiryDTO.setResponseContent(inquiry.getResponseContent());
+        inquiryDTO.setDeleted(inquiry.isDeleted());
+        inquiryDTO.setCreatedAt(inquiry.getCreatedAt());
+        return inquiryDTO;
+    }
+
     // DTO 변환 메서드
     private InquiryDTO convertToDTO(InquiryEntity inquiry) {
         InquiryDTO inquiryDTO = new InquiryDTO();
