@@ -91,6 +91,9 @@ public class ReservationService {
             throw new CustomException(1005, "Reservation must be in AVAILABLE status to confirm.");
         }
 
+        if(
+
+        )
         reservation.setStatus(ReservationStatus.CONFIRMED);
         reservationRepository.save(reservation);
     }
