@@ -8,7 +8,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -45,8 +49,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         // 사용자 ID 추출
         Long userId = customUserDetails.getUserEntity().getId();
 
+        // 권한 추출
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
+        GrantedAuthority auth = iterator.next();
+
+        String role = auth.getAuthority();
         // JWT 생성 (userId를 포함하여)
-        String token = jwtUtil.createJwt(userId);
+        String token = jwtUtil.createJwt(userId, role);
         if (token == null) {
             // 토큰 생성 실패 로그 추가
             System.out.println("JWT 토큰 생성 실패");
