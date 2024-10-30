@@ -37,7 +37,6 @@ public class SecurityConfig {
     //AuthenticationManager Bean 등록
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-
         return configuration.getAuthenticationManager();
     }
 
@@ -88,11 +87,10 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .anyRequest().permitAll());
-//                        .requestMatchers("/login", "/join","/").permitAll()
-//                        .requestMatchers("/api/**").authenticated()
-//                        .requestMatchers("/admin").hasRole("ADMIN")
-//                        .anyRequest().authenticated());
+                        .requestMatchers("/login", "/join/**","/").permitAll()
+                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated());
 
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);

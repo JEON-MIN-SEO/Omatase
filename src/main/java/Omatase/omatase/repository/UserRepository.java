@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    // 이메일로 사용자 존재 여부 확인
+    // メールでユーザーの存在を確認
     boolean existsByUsername(String username);
 
-    // 이메일로 사용자 찾기
+    // メールでユーザーを探索
     UserEntity findByUsername(String username);
 }
