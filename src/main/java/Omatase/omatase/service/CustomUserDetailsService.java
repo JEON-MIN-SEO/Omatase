@@ -23,9 +23,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         //DB 에서 조회
         UserEntity userDate = userRepository.findByUsername(username);
 
-        if (userDate != null ){
-            return new CustomUserDetails(userDate);
+        // 사용자가 존재하지 않을 경우 UsernameNotFoundException을 발생시킴
+        if (userDate == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        return null;
+
+        // 사용자 정보를 CustomUserDetails로 변환하여 반환
+        return new CustomUserDetails(userDate);
     }
 }

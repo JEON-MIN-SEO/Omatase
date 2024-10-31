@@ -15,7 +15,7 @@ public class InquiryEntity extends BaseEntity{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "FK_INQUIRY_USER"))
     private UserEntity user;
 
     private String title;

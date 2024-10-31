@@ -38,7 +38,7 @@ public class ReservationAPI {
     public ResponseEntity<ApiResponse<String>> addReservation(@PathVariable("userId") Long userId, @RequestBody ReservationDTO reservationDTO) {
         try {
             reservationService.addReservation(userId, reservationDTO);
-            ApiResponse<String> response = new ApiResponse<>("Reservation added successfully.");
+            ApiResponse<String> response = new ApiResponse<>("예약 성공");
             return ResponseEntity.ok(response);
         } catch (CustomException e) {
             ApiResponse<String> errorResponse = new ApiResponse<>(e.getErrorCode(), e.getMessage());
@@ -51,7 +51,7 @@ public class ReservationAPI {
     public ResponseEntity<ApiResponse<String>> confirmReservation(@PathVariable("reservationId") Long reservationId) {
         try {
             reservationService.confirmReservation(reservationId);
-            ApiResponse<String> response = new ApiResponse<>("Reservation confirmed successfully.");
+            ApiResponse<String> response = new ApiResponse<>("예약 확정 성공");
             return ResponseEntity.ok(response);
         } catch (CustomException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(e.getMessage()));

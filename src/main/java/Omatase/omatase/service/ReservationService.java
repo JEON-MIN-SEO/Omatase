@@ -44,6 +44,7 @@ public class ReservationService {
 
     private ReservationDTO convertToDTO(ReservationEntity reservation) {
         ReservationDTO reservationDTO = new ReservationDTO();
+        reservationDTO.setReservationId(reservation.getId());
         reservationDTO.setRestaurant_link(reservation.getRestaurant_link());
         reservationDTO.setAdult_count(reservation.getAdult_count());
         reservationDTO.setChild_count(reservation.getChild_count());
