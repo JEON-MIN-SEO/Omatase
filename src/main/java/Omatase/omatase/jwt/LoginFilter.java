@@ -65,6 +65,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         //반환할때 { Authorization : Bearer 토큰 넘버}로 구성되어야 한다.
         response.addHeader("Authorization", "Bearer " + token);
     }
+    @Override
+    protected void
 
     //로그인 실패시 실행하는 메소드
     @Override
