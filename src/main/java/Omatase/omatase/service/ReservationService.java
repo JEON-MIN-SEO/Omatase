@@ -81,7 +81,7 @@ public class ReservationService {
 
         // 24시간이 지나지 않았는지 확인
         if (reservation.getStatus() == ReservationStatus.AVAILABLE &&
-                reservation.getAvailable_date_time().plusHours(24).isBefore(LocalDateTime.now())) {
+                reservation.getModifiedAt().plusHours(24).isBefore(LocalDateTime.now())) {
             reservation.setStatus(ReservationStatus.CANCELED);
             reservationRepository.save(reservation);
             throw new CustomException(1006, "Reservation has been automatically canceled due to expiration.");

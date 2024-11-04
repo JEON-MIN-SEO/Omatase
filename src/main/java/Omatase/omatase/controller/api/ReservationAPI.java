@@ -54,7 +54,7 @@ public class ReservationAPI {
             ApiResponse<String> response = new ApiResponse<>("예약 확정 성공");
             return ResponseEntity.ok(response);
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(e.getErrorCode(), e.getMessage()));
         }
     }
 }
