@@ -32,6 +32,8 @@ public class ReservationDTO {
 
     private LocalDateTime createdAt; // 추가
 
+    private LocalDateTime modifiedAt;
+
     private Long userId; // 추가
 
     private String username; // 추가

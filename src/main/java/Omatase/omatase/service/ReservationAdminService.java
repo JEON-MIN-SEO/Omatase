@@ -42,6 +42,7 @@ public class ReservationAdminService {
         reservationDTO.setAvailable_date_time(reservation.getAvailable_date_time());
         reservationDTO.setStatus(reservation.getStatus());
         reservationDTO.setCreatedAt(reservation.getCreatedAt());
+        reservationDTO.setModifiedAt(reservation.getModifiedAt());
 
         // 사용자 정보 설정
         UserEntity user = reservation.getUser();

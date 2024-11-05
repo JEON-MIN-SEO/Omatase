@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableScheduling // 스케줄링 활성화
-@EnableJpaAuditing // 시간 자동 저장
+@EnableScheduling // スケジューリング活性化
+@EnableJpaAuditing // 時間自動保存
 public class OmataseApplication {
 
 	public static void main(String[] args) {

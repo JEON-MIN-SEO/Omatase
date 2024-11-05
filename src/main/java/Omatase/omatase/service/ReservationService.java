@@ -74,7 +74,7 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
-    // 예약 확정 및 상태 확인 메서드
+    // 予約確定およびステータス確認メソッド
     public void confirmReservation(Long reservationId) {
         ReservationEntity reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new CustomException(1002, "Reservation not found"));
@@ -87,7 +87,7 @@ public class ReservationService {
             throw new CustomException(1006, "Reservation has been automatically canceled due to expiration.");
         }
 
-        // 현재 상태가 AVAILABLE인지 확인
+        // 現在の状態がAVAILABLEなのか確認
         if (reservation.getStatus() != ReservationStatus.AVAILABLE) {
             throw new CustomException(1005, "Reservation must be in AVAILABLE status to confirm.");
         }
