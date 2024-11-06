@@ -84,7 +84,7 @@ public class ReservationService {
                 reservation.getModifiedAt().plusHours(24).isBefore(LocalDateTime.now())) {
             reservation.setStatus(ReservationStatus.CANCELED);
             reservationRepository.save(reservation);
-            throw new CustomException(1006, "예약이 이미 자동으로 취소 처리됨");
+            throw new CustomException(1004, "예약이 이미 자동으로 취소 처리됨");
         }
 
         // 現在の状態がAVAILABLEなのか確認

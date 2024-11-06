@@ -58,7 +58,7 @@ public class InquiryService {
     // 問合せの削除(論理的削除)
     public void deleteInquiry(Long inquiryId) {
         InquiryEntity inquiry = inquiryRepository.findById(inquiryId)
-                .orElseThrow(() -> new CustomException(1004, "Inquiry not found"));
+                .orElseThrow(() -> new CustomException(1002, "예약을 찾지 못함"));
 
         // 論理的削除処理
         inquiry.setDeleted(true);
