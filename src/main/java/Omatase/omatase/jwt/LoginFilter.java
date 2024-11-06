@@ -36,37 +36,37 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
 
-        //token에 담은 검증을 위한 AuthenticationManager로 전달
+        //tokenに盛り込んだ検証のためのAuthentication Managerで伝達
         return authenticationManager.authenticate(authToken);
     }
 
-    //로그인 성공시 실행하는 메소드 (여기서 JWT를 발급하면 됨)
+    //ログイン成功時に実行するメソッド(ここでJWTを発行する)
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
-        // CustomUserDetails에서 userId를 가져옴
+        // CustomUserDetailsからuserIdを取得する
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
 
-        // 사용자 ID 추출
+        // ユーザーID抽出
         Long userId = customUserDetails.getUserEntity().getId();
 
-        // 권한 추출
+        // 権限抽出（ちゅうしゅつ）
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
 
         String role = auth.getAuthority();
-        // JWT 생성 (userId를 포함하여)
+        // JWT生成(userIdを含めて)
         String token = jwtUtil.createJwt(userId, role);
         if (token == null) {
-            // 토큰 생성 실패 로그 추가
+            // トークン生成失敗ログ追加
             System.out.println("JWT 토큰 생성 실패");
         }
 
-        //반환할때 { Authorization : Bearer 토큰 넘버}로 구성되어야 한다.
+        //返還する際、{Authorization:Bearerトークンナンバー}で構成されなければならない。
         response.addHeader("Authorization", "Bearer " + token);
     }
 
-    //로그인 실패시 실행하는 메소드
+    //ログイン失敗時に実行するメソッド
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
         response.setStatus(401);

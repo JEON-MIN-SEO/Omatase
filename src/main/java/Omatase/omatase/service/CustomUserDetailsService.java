@@ -20,15 +20,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        //DB 에서 조회
+        //DBで照会
         UserEntity userDate = userRepository.findByUsername(username);
 
-        // 사용자가 존재하지 않을 경우 UsernameNotFoundException을 발생시킴
+        // ユーザーが存在しない場合、UsernameNotFoundExceptionを発生させる
         if (userDate == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
-        // 사용자 정보를 CustomUserDetails로 변환하여 반환
+        // ユーザー情報をCustom User Detailsに変換して返却
         return new CustomUserDetails(userDate);
     }
 }

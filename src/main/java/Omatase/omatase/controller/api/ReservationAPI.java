@@ -20,7 +20,7 @@ public class ReservationAPI {
         this.reservationService = reservationService;
     }
 
-    // 사용자 ID로 모든 예약 정보를 가져오는 엔드포인트
+    // ユーザーIDですべての予約情報を取得するエンドポイント
     @GetMapping("/user/{userId}")
     public ResponseEntity<ApiResponse<List<ReservationDTO>>> getReservationsByUserId(@PathVariable("userId") Long userId) {
         try {
@@ -33,7 +33,7 @@ public class ReservationAPI {
         }
     }
 
-    // 새로운 예약을 추가하는 엔드포인트
+    // 新しい予約を追加するエンドポイント
     @PostMapping("/user/{userId}")
     public ResponseEntity<ApiResponse<String>> addReservation(@PathVariable("userId") Long userId, @RequestBody ReservationDTO reservationDTO) {
         try {
@@ -46,7 +46,7 @@ public class ReservationAPI {
         }
     }
 
-    // 예약 확정 API
+    // 予約確定API
     @PostMapping("/confirm/{reservationId}")
     public ResponseEntity<ApiResponse<String>> confirmReservation(@PathVariable("reservationId") Long reservationId) {
         try {

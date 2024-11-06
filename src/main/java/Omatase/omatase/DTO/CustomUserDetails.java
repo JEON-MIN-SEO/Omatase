@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
 
@@ -17,7 +16,7 @@ public class CustomUserDetails implements UserDetails {
         this.userEntity = userEntity;
     }
 
-    //Role값 반환
+    //Role値の返還
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
@@ -70,6 +69,6 @@ public class CustomUserDetails implements UserDetails {
     }
 
     public UserEntity getUserEntity() {
-        return this.userEntity; // UserEntity에서 직접 ID를 가져오기 위한 메서드
+        return this.userEntity; // UserEntityで直接IDを向けた・メソッド
     }
 }

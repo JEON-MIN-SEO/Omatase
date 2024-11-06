@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL) // null 값을 제외합니다.
+@JsonInclude(JsonInclude.Include.NON_NULL) // null値を除きます。
 public class ApiResponse<T> {
     private T data;
     private Integer errorId;

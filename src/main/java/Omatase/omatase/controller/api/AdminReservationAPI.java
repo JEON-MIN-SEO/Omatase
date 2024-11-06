@@ -18,14 +18,14 @@ public class AdminReservationAPI {
         this.reservationAdminService = reservationAdminService;
     }
 
-    // 모든 사용자 예약 정보 가져오기
+    // すべてのユーザー予約情報の取得
     @GetMapping("/all")
     public ResponseEntity<List<ReservationDTO>> getAllReservations() {
         List<ReservationDTO> reservations = reservationAdminService.getAllReservations();
         return ResponseEntity.ok(reservations);
     }
 
-    // 예약 상태 변경 API
+    // 予約状態変更API
     @PostMapping("/update-status")
     public ResponseEntity<String> updateReservationStatus(@RequestBody ReservationStatusUpdateDTO updateDTO) {
         reservationAdminService.updateReservationStatus(updateDTO);

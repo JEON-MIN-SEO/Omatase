@@ -21,7 +21,7 @@ public class InquiryAdminService {
         this.userRepository = userRepository;
     }
 
-    // 모든 문의 조회 (논리적 삭제된 문의 포함)
+    // すべての問い合わせ照会(論理的に削除された問い合わせを含む)
     public List<InquiryDTO> getAllInquiries() {
         List<InquiryEntity> inquiries = inquiryRepository.findAll();
         return inquiries.stream()
@@ -29,7 +29,7 @@ public class InquiryAdminService {
                 .collect(Collectors.toList());
     }
 
-    // 문의에 답변 작성
+    // お問い合わせに回答作成
     public void respondToInquiry(Long inquiryId, String responseContent) {
         InquiryEntity inquiry = inquiryRepository.findById(inquiryId)
                 .orElseThrow(() -> new CustomException(1002, "Inquiry not found"));
@@ -38,14 +38,14 @@ public class InquiryAdminService {
     }
 
 
-    // 특정 문의 ID로 조회
+    // 特定のお問い合わせIDで照会
     public InquiryDTO getInquiryById(Long inquiryId) {
         InquiryEntity inquiry = inquiryRepository.findById(inquiryId)
                 .orElseThrow(() -> new CustomException(1002, "Inquiry not found"));
         return convertToInquiryDTO(inquiry);
     }
 
-    // InquiryEntity를 InquiryDTO로 변환
+    // InquiryEntityをInquiryDTOに変換
     private InquiryDTO convertToInquiryDTO(InquiryEntity inquiry) {
         InquiryDTO inquiryDTO = new InquiryDTO();
         inquiryDTO.setId(inquiry.getId());
@@ -57,7 +57,7 @@ public class InquiryAdminService {
         return inquiryDTO;
     }
 
-    // DTO 변환 메서드
+    // DTO変換メソッド
     private InquiryDTO convertToDTO(InquiryEntity inquiry) {
         InquiryDTO inquiryDTO = new InquiryDTO();
         inquiryDTO.setId(inquiry.getId());

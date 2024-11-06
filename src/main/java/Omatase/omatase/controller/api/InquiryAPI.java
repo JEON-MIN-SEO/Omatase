@@ -20,7 +20,7 @@ public class InquiryAPI {
         this.inquiryService = inquiryService;
     }
 
-    // 특정 사용자의 모든 문의 조회
+    // 特定ユーザーのすべての問い合わせ照会
     @GetMapping("/user/{userId}")
     public ResponseEntity<ApiResponse<List<InquiryDTO>>> getUserInquiries(@PathVariable("userId") Long userId) {
         try {
@@ -28,13 +28,13 @@ public class InquiryAPI {
             ApiResponse<List<InquiryDTO>> response = new ApiResponse<>(inquiries);
             return ResponseEntity.ok(response);
         } catch (CustomException e) {
-            // 수정: 에러 코드 포함
+            // 修正:エラーコード付き
             ApiResponse<List<InquiryDTO>> errorResponse = new ApiResponse<>(e.getErrorCode(), e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
     }
 
-    // 문의 작성
+    // 問い合わせ作成
     @PostMapping("/user/{userId}")
     public ResponseEntity<ApiResponse<String>> createInquiry(@PathVariable("userId") Long userId, @RequestBody InquiryDTO inquiryDTO) {
         try {
@@ -42,7 +42,7 @@ public class InquiryAPI {
             ApiResponse<String> response = new ApiResponse<>("Inquiry created successfully.");
             return ResponseEntity.ok(response);
         } catch (CustomException e) {
-            // 수정: 에러 코드 포함
+            // 修正:エラーコード付き
             ApiResponse<String> errorResponse = new ApiResponse<>(e.getErrorCode(), e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }

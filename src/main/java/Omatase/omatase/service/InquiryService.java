@@ -24,7 +24,7 @@ public class InquiryService {
         this.userRepository = userRepository;
     }
 
-    // 특정 사용자의 모든 문의 조회
+    // 特定使用者の全てのお問い合わせ照会
     public List<InquiryDTO> getUserInquiries(Long userId) {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(1001, "User not found"));
@@ -42,7 +42,7 @@ public class InquiryService {
         return inquiryDTO;
     }
 
-    // 문의 작성
+    // 問い合わせ作成
     public void createInquiry(Long userId, InquiryDTO inquiryDTO) {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(1001, "User not found"));
@@ -55,12 +55,12 @@ public class InquiryService {
         inquiryRepository.save(inquiry);
     }
 
-    // 문의 삭제 (논리적 삭제)
+    // 問合せの削除(論理的削除)
     public void deleteInquiry(Long inquiryId) {
         InquiryEntity inquiry = inquiryRepository.findById(inquiryId)
                 .orElseThrow(() -> new CustomException(1004, "Inquiry not found"));
 
-        // 논리적 삭제 처리
+        // 論理的削除処理
         inquiry.setDeleted(true);
         inquiryRepository.save(inquiry);
     }

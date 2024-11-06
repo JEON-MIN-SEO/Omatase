@@ -19,7 +19,7 @@ public class AdminInquiryAPI {
         this.inquiryAdminService = inquiryAdminService;
     }
 
-    // 모든 문의 조회 (논리적 삭제된 문의 포함)
+    // すべての問い合わせ照会(論理的に削除された問い合わせを含む)
     @GetMapping("/all")
     public ResponseEntity<ApiResponse<List<InquiryDTO>>> getAllInquiries() {
         try {
@@ -27,25 +27,25 @@ public class AdminInquiryAPI {
             ApiResponse<List<InquiryDTO>> response = new ApiResponse<>(inquiries);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            ApiResponse<List<InquiryDTO>> errorResponse = new ApiResponse<>(1000, "An error occurred while fetching inquiries.");
+            ApiResponse<List<InquiryDTO>> errorResponse = new ApiResponse<>(1000, "예기치 못한 오류 발생.");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
-    // 문의에 답변 작성
+    // お問い合わせに回答作成
     @PostMapping("/respond/{inquiryId}")
     public ResponseEntity<ApiResponse<InquiryDTO>> respondToInquiry(@PathVariable("inquiryId") Long inquiryId, @RequestBody InquiryDTO inquiryDTO) {
         try {
             inquiryAdminService.respondToInquiry(inquiryId, inquiryDTO.getResponseContent());
-            // 기존 문의 정보를 다시 조회하여 응답
-            InquiryDTO updatedInquiry = inquiryAdminService.getInquiryById(inquiryId); // 문의 조회 메서드 추가 필요
+            // 既存の問い合わせ情報を再度照会して応答
+            InquiryDTO updatedInquiry = inquiryAdminService.getInquiryById(inquiryId);
             ApiResponse<InquiryDTO> response = new ApiResponse<>(updatedInquiry);
             return ResponseEntity.ok(response);
         } catch (CustomException e) {
             ApiResponse<InquiryDTO> errorResponse = new ApiResponse<>(e.getErrorCode(), e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         } catch (Exception e) {
-            ApiResponse<InquiryDTO> errorResponse = new ApiResponse<>(1000, "An error occurred while responding to the inquiry.");
+            ApiResponse<InquiryDTO> errorResponse = new ApiResponse<>(1000, "예기치 못한 오류 발생.");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }

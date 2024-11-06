@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL) // null 값을 제외합니다.
+@JsonInclude(JsonInclude.Include.NON_NULL) // null値を除きます。
 public class ReservationDTO {
 
-    private Long reservationId; // 예약 ID 추가
+    private Long reservationId; // 予約ID追加
 
     private String restaurant_link;
 
@@ -30,11 +30,11 @@ public class ReservationDTO {
 
     private ReservationStatus status;
 
-    private LocalDateTime createdAt; // 추가
+    private LocalDateTime createdAt; // 追加
 
     private LocalDateTime modifiedAt;
 
-    private Long userId; // 추가
+    private Long userId; // 追加
 
-    private String username; // 추가
+    private String username; // 追加
 }

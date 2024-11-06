@@ -24,7 +24,7 @@ import java.util.Collections;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    //AuthenticationManager가 인자로 받을 AuthenticationConfiguraion 객체 생성자 주입
+    //Authentication Managerが因子として受け取るAuthentication Configuraionオブジェクト作成者注入
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
 
@@ -34,7 +34,7 @@ public class SecurityConfig {
         this.jwtUtil = jwtUtil;
     }
 
-    //AuthenticationManager Bean 등록
+    //AuthenticationManager Bean登録
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
@@ -76,15 +76,15 @@ public class SecurityConfig {
         http
                 .csrf((auth) -> auth.disable());
 
-        //From 로그인 방식 disable
+        //From ログイン方式 disable
         http
                 .formLogin((auth) -> auth.disable());
 
-        //http basic 인증 방식 disable
+        //http basic認証方式 disable
         http
                 .httpBasic((auth) -> auth.disable());
 
-        //경로별 인가 작업
+        //経路別の認可作業
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/login", "/join/user", "join/admin" ,"/").permitAll()
@@ -96,11 +96,11 @@ public class SecurityConfig {
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
-        //JWT 검증 필터
+        //JWT検証フィルター
         http
                 .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
-        //세션 설정
+        //セッション設定
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));

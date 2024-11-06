@@ -8,18 +8,18 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL) // null 값을 제외합니다.
+@JsonInclude(JsonInclude.Include.NON_NULL) // null値を除きます。
 public class InquiryDTO {
 
-    private Long id; // 문의 ID 추가
+    private Long id; // お問い合わせID追加
 
     private String title;
 
     private String content;
 
-    private String responseContent; // 관리자 응답 내용
+    private String responseContent; // 管理者応答内容
 
-    private boolean isDeleted; // 삭제 여부
+    private boolean isDeleted; // 削除の可否
 
     private LocalDateTime createdAt;
 }

@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 @Setter
 public class ReservationStatusUpdateDTO {
 
-    private Long reservationId; // 변경할 예약의 ID
+    private Long reservationId; // 変更する予約のID
 
-    private ReservationStatus status; // 새로운 상태
+    private ReservationStatus status; // 新しい状態
 
-    private LocalDateTime selectedDateTime; // 선택한 날짜 (AVAILABLE 상태로 변경 시)
+    private LocalDateTime selectedDateTime; // 選択した日付(AVAILABLE状態に変更時)
 
 }

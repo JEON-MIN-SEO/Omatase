@@ -18,19 +18,20 @@ public class ReservationScheduler {
         this.reservationRepository = reservationRepository;
     }
 
-    // 매 1시간마다 예약 상태를 확인하고, 필요한 경우 CANCELED로 변경
-    @Scheduled(fixedRate = 3600000) // 1시간마다 실행
+    // 1時間ごとに予約状態を確認し、必要に応じてCANCELEDに変更
+    @Scheduled(fixedRate = 3600000) // 1時間ごとに
     public void checkAndCancelExpiredReservations() {
+        System.out.println("Scheduler is running..."); // スケジューラ実行確認用ログ
         List<ReservationEntity> reservations = reservationRepository.findAll();
 
         for (ReservationEntity reservation : reservations) {
-            // 상태가 AVAILABLE인 예약에 대해서만 확인
+            // ステータスがAVAILABLEの予約についてのみ確認
             if (reservation.getStatus() == ReservationStatus.AVAILABLE) {
-                // 예약이 AVAILABLE 상태로 변경된 후 24시간이 지났는지 확인
+                // 予約がAVAILABLE状態に変更された後、24時間が経過したかを確認
                 if (reservation.getAvailable_date_time() != null &&
                         reservation.getModifiedAt().plusHours(24).isBefore(LocalDateTime.now())) {
 
-                    // 상태를 CANCELED로 변경
+                    // 状態をCANCELEDに変更
                     reservation.setStatus(ReservationStatus.CANCELED);
                     reservationRepository.save(reservation);
                 }

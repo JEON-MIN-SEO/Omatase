@@ -24,10 +24,10 @@ public class ReservationService {
         this.userRepository = userRepository;
     }
 
-    // 사용자 ID로 모든 예약 정보를 가져오는 메서드
+    // ユーザーIDですべての予約情報を取得するメソッド
     public List<ReservationDTO> getAllReservationsByUserId(Long userId) {
 
-        // 사용자 확인
+        // ユーザー確認
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(1001, "User not found"));
         /*
@@ -69,7 +69,7 @@ public class ReservationService {
         reservation.setPrimary_date_time(reservationDTO.getPrimary_date_time());
         reservation.setSecondary_date_time(reservationDTO.getSecondary_date_time());
         reservation.setTertiary_date_time(reservationDTO.getTertiary_date_time());
-        reservation.setStatus(ReservationStatus.WAITING); // 기본 예약 상태 설정
+        reservation.setStatus(ReservationStatus.WAITING); // 基本予約状態の設定
 
         reservationRepository.save(reservation);
     }
@@ -77,7 +77,7 @@ public class ReservationService {
     // 予約確定およびステータス確認メソッド
     public void confirmReservation(Long reservationId) {
         ReservationEntity reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new CustomException(1002, "Reservation not found"));
+                .orElseThrow(() -> new CustomException(1002, "예약을 발견하지 못했습니다"));
 
         // 24시간이 지나지 않았는지 확인
         if (reservation.getStatus() == ReservationStatus.AVAILABLE &&

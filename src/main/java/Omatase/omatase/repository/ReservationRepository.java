@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<ReservationEntity,Long> {
-    // 사용자 ID에 해당하는 모든 예약 정보를 가져오는 메서드
+    // ユーザーIDに該当するすべての予約情報を取得するメソッド
     List<ReservationEntity> findAllByUserId(Long userId);
 }

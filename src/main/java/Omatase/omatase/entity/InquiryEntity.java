@@ -24,10 +24,10 @@ public class InquiryEntity extends BaseEntity{
     private String content;
 
     @Column(name = "is_deleted")
-    private boolean deleted = false; // 논리적 삭제를 위한 필드
+    private boolean deleted = false; // 論理的削除のためのフィールド
 
     @Column(columnDefinition = "TEXT")
-    private String responseContent; // 관리자 응답 내용
+    private String responseContent; // 管理者応答内容
 
 }
 

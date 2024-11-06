@@ -1,9 +1,9 @@
 package Omatase.omatase.enums;
 
 public enum ReservationStatus {
-    WAITING,       // 예약 대기
-    AVAILABLE,     // 예약 가능
-    UNAVAILABLE,   // 예약 불가능
-    CONFIRMED,     // 예약 확정
-    CANCELED;      // 예약 포기
+    WAITING,       // 予約待ち
+    AVAILABLE,     // 予約可能
+    UNAVAILABLE,   // 予約不可
+    CONFIRMED,     // 予約確定
+    CANCELED;      // 予約放棄
 }

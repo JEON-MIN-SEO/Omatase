@@ -1,6 +1,5 @@
 package Omatase.omatase.service;
 
-import Omatase.omatase.DTO.InquiryDTO;
 import Omatase.omatase.DTO.ReservationDTO;
 import Omatase.omatase.DTO.ReservationStatusUpdateDTO;
 import Omatase.omatase.entity.ReservationEntity;
@@ -22,14 +21,14 @@ public class ReservationAdminService {
         this.reservationRepository = reservationRepository;
     }
 
-    // 모든 사용자 예약 정보 가져오기
+    // すべてのユーザー予約情報の取得
     public List<ReservationDTO> getAllReservations() {
         return reservationRepository.findAll().stream()
                 .map(this::convertToReservationDTO)
                 .collect(Collectors.toList());
     }
 
-    // ReservationEntity를 ReservationDTO로 변환
+    // ReservationEntityをReservationDTOに変換
     private ReservationDTO convertToReservationDTO(ReservationEntity reservation) {
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setReservationId(reservation.getId());
@@ -44,7 +43,7 @@ public class ReservationAdminService {
         reservationDTO.setCreatedAt(reservation.getCreatedAt());
         reservationDTO.setModifiedAt(reservation.getModifiedAt());
 
-        // 사용자 정보 설정
+        // ユーザー情報設定
         UserEntity user = reservation.getUser();
         if (user != null) {
             reservationDTO.setUserId(user.getId());
@@ -54,15 +53,15 @@ public class ReservationAdminService {
         return reservationDTO;
     }
 
-    // 예약 상태 변경
+    // 予約状態の変更
     public void updateReservationStatus(ReservationStatusUpdateDTO updateDTO) {
         ReservationEntity reservation = reservationRepository.findById(updateDTO.getReservationId())
-                .orElseThrow(() -> new CustomException(1002, "Reservation not found"));
+                .orElseThrow(() -> new CustomException(1002, "예약을 발견하지 못했습니다."));
 
-        // 상태 변경 로직
+        //　状態変更ロジック
         if (updateDTO.getStatus() == ReservationStatus.AVAILABLE) {
             if (updateDTO.getSelectedDateTime() == null) {
-                throw new CustomException(1003, "Please select a date when changing to AVAILABLE");
+                throw new CustomException(1003, "변경할 시간을 입력해주세요");
             }
             reservation.setAvailable_date_time(updateDTO.getSelectedDateTime());
         }
