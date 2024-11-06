@@ -32,7 +32,7 @@ public class InquiryAdminService {
     // お問い合わせに回答作成
     public void respondToInquiry(Long inquiryId, String responseContent) {
         InquiryEntity inquiry = inquiryRepository.findById(inquiryId)
-                .orElseThrow(() -> new CustomException(1002, "Inquiry not found"));
+                .orElseThrow(() -> new CustomException(1002, "문의를 찾지 못함"));
         inquiry.setResponseContent(responseContent); // 답변 설정
         inquiryRepository.save(inquiry);
     }
@@ -41,7 +41,7 @@ public class InquiryAdminService {
     // 特定のお問い合わせIDで照会
     public InquiryDTO getInquiryById(Long inquiryId) {
         InquiryEntity inquiry = inquiryRepository.findById(inquiryId)
-                .orElseThrow(() -> new CustomException(1002, "Inquiry not found"));
+                .orElseThrow(() -> new CustomException(1002, "문의를 찾지 못함"));
         return convertToInquiryDTO(inquiry);
     }
 

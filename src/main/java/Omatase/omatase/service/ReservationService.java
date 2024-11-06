@@ -29,7 +29,7 @@ public class ReservationService {
 
         // ユーザー確認
         UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(1001, "User not found"));
+                .orElseThrow(() -> new CustomException(1001, "사용자를 찾지 못함"));
         /*
         Optional<UserEntity> userEntity = userRepository.findById(userId);
         if (userEntity.isEmpty()) {
@@ -59,7 +59,7 @@ public class ReservationService {
     public void addReservation(Long userId, ReservationDTO reservationDTO) {
         // 사용자 확인
         UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(1001, "User not found"));
+                .orElseThrow(() -> new CustomException(1001, "사용자를 찾지 못함"));
 
         ReservationEntity reservation = new ReservationEntity();
         reservation.setUser(userEntity);
@@ -84,12 +84,12 @@ public class ReservationService {
                 reservation.getModifiedAt().plusHours(24).isBefore(LocalDateTime.now())) {
             reservation.setStatus(ReservationStatus.CANCELED);
             reservationRepository.save(reservation);
-            throw new CustomException(1006, "Reservation has been automatically canceled due to expiration.");
+            throw new CustomException(1006, "예약이 이미 자동으로 취소 처리됨");
         }
 
         // 現在の状態がAVAILABLEなのか確認
         if (reservation.getStatus() != ReservationStatus.AVAILABLE) {
-            throw new CustomException(1005, "Reservation must be in AVAILABLE status to confirm.");
+            throw new CustomException(1005, "예약확정을 하기 위해서는 AVAILABLE 상태여야함");
         }
 
         reservation.setStatus(ReservationStatus.CONFIRMED);
