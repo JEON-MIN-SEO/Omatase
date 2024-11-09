@@ -52,10 +52,11 @@ public class ReservationService {
         reservationDTO.setSecondary_date_time(reservation.getSecondary_date_time());
         reservationDTO.setTertiary_date_time(reservation.getTertiary_date_time());
         reservationDTO.setStatus(reservation.getStatus());
+        reservationDTO.setAvailable_date_time(reservation.getAvailable_date_time());
         return reservationDTO;
     }
 
-    // 새로운 예약을 추가하는 메서드
+    // 新しい予約を追加するメソッド
     public void addReservation(Long userId, ReservationDTO reservationDTO) {
         // 사용자 확인
         UserEntity userEntity = userRepository.findById(userId)
