@@ -36,6 +36,7 @@ public class InquiryService {
 
     private InquiryDTO convertToDTO(InquiryEntity inquiry) {
         InquiryDTO inquiryDTO = new InquiryDTO();
+        inquiryDTO.setId(inquiry.getId());
         inquiryDTO.setTitle(inquiry.getTitle());
         inquiryDTO.setContent(inquiry.getContent());
         inquiryDTO.setResponseContent(inquiry.getResponseContent());
