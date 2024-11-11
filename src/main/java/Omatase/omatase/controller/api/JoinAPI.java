@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/join")
+@RequestMapping("/api/join")
 public class JoinAPI {
 
     private final JoinService joinService;
