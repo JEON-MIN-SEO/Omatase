@@ -4,7 +4,6 @@ import Omatase.omatase.DTO.InquiryDTO;
 import Omatase.omatase.entity.InquiryEntity;
 import Omatase.omatase.exception.CustomException;
 import Omatase.omatase.repository.InquiryRepository;
-import Omatase.omatase.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +13,10 @@ import java.util.stream.Collectors;
 public class InquiryAdminService {
 
     private final InquiryRepository inquiryRepository;
-    private final UserRepository userRepository;
 
-    public InquiryAdminService(InquiryRepository inquiryRepository, UserRepository userRepository) {
+
+    public InquiryAdminService(InquiryRepository inquiryRepository) {
         this.inquiryRepository = inquiryRepository;
-        this.userRepository = userRepository;
     }
 
     // すべての問い合わせ照会(論理的に削除された問い合わせを含む)
